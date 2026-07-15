@@ -47,11 +47,16 @@ own checks — typecheck, lint, and the test suite if one exists (look for
 commands in package.json, Makefile, or the rules file) — and record what
 passes. After editing, run them again. If a check from your recorded
 baseline now fails, revert the offending change; failures already present
-in the baseline are pre-existing — report them, don't revert for them. If
-no checks exist, re-read your diff and confirm each hunk is
-behavior-neutral.
+in the baseline are pre-existing — report them, don't revert for them.
+
+After the checks pass, re-read your full diff once as a skeptical reviewer
+hunting for behavior changes the tests might not cover (edge cases, type
+coercion, error paths). Passing checks prove coverage, not equivalence —
+when a hunk's behavior-neutrality is uncertain, revert that hunk. The same
+skeptical re-read is your only safety net when a project has no checks at
+all, so apply it with extra care there.
 
 **Workflow:** find the recent changes → run the checks once to record the
 baseline → spot cleanup opportunities → apply them per the style source →
-re-run the checks against the baseline → summarize only the changes worth
-knowing about.
+re-run the checks against the baseline → skeptic-read the diff → summarize
+only the changes worth knowing about.

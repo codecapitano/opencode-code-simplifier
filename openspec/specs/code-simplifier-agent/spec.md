@@ -36,7 +36,7 @@ The agent SHALL touch only files changed recently (git diff or current session) 
 - **THEN** its diff covers only those two files
 
 ### Requirement: Mechanical verification after editing
-After editing, the agent SHALL run the project's own checks (typecheck, lint, tests) when available, revert any edit that breaks a previously passing check, and MUST NOT attribute pre-existing failures to its own edits. When no checks exist, it SHALL re-review its diff for behavior neutrality.
+After editing, the agent SHALL run the project's own checks (typecheck, lint, tests) when available, revert any edit that breaks a previously passing check, and MUST NOT attribute pre-existing failures to its own edits. Regardless of check results, it SHALL then re-read its final diff as a skeptical reviewer for behavior changes not covered by tests (edge cases, type coercion, error paths) and revert any hunk whose behavior-neutrality is uncertain; when no checks exist, this re-read is the sole verification and applies with extra care.
 
 #### Scenario: Project with a test suite
 - **WHEN** the agent finishes edits in a repository with a configured test command
@@ -45,6 +45,10 @@ After editing, the agent SHALL run the project's own checks (typecheck, lint, te
 #### Scenario: Pre-existing failure
 - **WHEN** a test was already failing before the agent edited anything
 - **THEN** the agent does not revert its edits because of that failure and reports the failure as pre-existing
+
+#### Scenario: Behavior change invisible to weak tests
+- **WHEN** the project's tests pass after an edit that alters behavior for an untested edge case (e.g. type coercion or NaN handling)
+- **THEN** the skeptical diff re-read identifies the uncertain hunk and the agent reverts it rather than trusting the passing checks
 
 ### Requirement: Model is user-configurable, not pinned
 The agent definition SHALL NOT pin a `model`, so it inherits the session model; the README SHALL document overriding the model via `opencode.json` under `agent.code-simplifier.model`.
