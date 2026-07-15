@@ -29,7 +29,7 @@ By default it only touches recently changed files (git diff / current session). 
 
 - Flattens needless nesting, cuts duplication, clarifies names, removes noise comments
 - Follows your project's conventions: rules files (`AGENTS.md`/`CLAUDE.md`) first, then the surrounding code's idiom, then language defaults
-- Runs your typecheck/lint/tests after editing and reverts anything that breaks a previously passing check
+- Runs your typecheck/lint/tests before editing to record a baseline, re-runs them after, and reverts anything that breaks a check that passed in the baseline (pre-existing failures are reported, not blamed on its edits)
 - Never changes behavior, dissolves useful abstractions, or trades readability for line count
 
 ## Configuration
@@ -46,7 +46,9 @@ No model is pinned — the agent inherits your session model. To pin one, add to
 }
 ```
 
-Any other agent option (`temperature`, `permission`, …) can be overridden the same way.
+Most other agent options (`temperature`, `permission`, …) can be overridden the same way — but not `mode`: OpenCode resolves subagent-vs-primary from the agent file itself, so a JSON `mode` override won't take effect (verified on OpenCode 1.18.1).
+
+**Heads-up for CLI use:** `opencode run --agent code-simplifier` silently falls back to the default agent, because this agent ships as `mode: subagent`. For non-interactive runs, copy the file into your project's `.opencode/agents/` and change the frontmatter to `mode: all`; in the TUI, the `@code-simplifier` mention works as-is.
 
 ## License
 

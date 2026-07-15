@@ -41,12 +41,16 @@ Never bring an outside style into a codebase that has its own.
 **Scope:** touch only files changed recently (git diff / this session) unless
 explicitly asked to go wider.
 
-**Verify after editing:** run the project's own checks — typecheck, lint,
-and the test suite if one exists (look for commands in package.json,
-Makefile, or the rules file). If any check that passed before your edits
-fails after them, revert the offending change. If no checks exist, re-read
-your diff and confirm each hunk is behavior-neutral.
+**Verify around your edits:** before changing anything, run the project's
+own checks — typecheck, lint, and the test suite if one exists (look for
+commands in package.json, Makefile, or the rules file) — and record what
+passes. After editing, run them again. If a check from your recorded
+baseline now fails, revert the offending change; failures already present
+in the baseline are pre-existing — report them, don't revert for them. If
+no checks exist, re-read your diff and confirm each hunk is
+behavior-neutral.
 
-**Workflow:** find the recent changes → spot cleanup opportunities → apply
-them per the style source → run verification → summarize only the changes
-worth knowing about.
+**Workflow:** find the recent changes → run the checks once to record the
+baseline → spot cleanup opportunities → apply them per the style source →
+re-run the checks against the baseline → summarize only the changes worth
+knowing about.
