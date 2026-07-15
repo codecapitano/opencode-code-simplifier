@@ -57,6 +57,7 @@ By default it only touches recently changed files (git diff / current session). 
 - Flattens needless nesting, cuts duplication, clarifies names, removes noise comments
 - Follows your project's conventions: rules files (`AGENTS.md`/`CLAUDE.md`) first, then the surrounding code's idiom, then language defaults
 - Runs your typecheck/lint/tests before editing to record a baseline, re-runs them after, and reverts anything that breaks a check that passed in the baseline (pre-existing failures are reported, not blamed on its edits)
+- Re-reads its final diff as a skeptical reviewer for behavior changes your tests might not cover (edge cases, coercion, error paths) — passing checks prove coverage, not equivalence
 - Never changes behavior, dissolves useful abstractions, or trades readability for line count
 
 ## Configuration
