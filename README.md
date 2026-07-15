@@ -38,8 +38,15 @@ cp agents/code-simplifier.md .opencode/agents/code-simplifier.md            # pe
 
 ## Usage
 
-- **Manual:** mention it in any OpenCode session — `@code-simplifier clean up my recent changes`
-- **Delegated:** primary agents (e.g. Build) can route cleanup work to it automatically via the Task tool, based on the agent's description
+- **Command (recommended):** `/simplify` in any OpenCode session — optionally with focus hints, e.g. `/simplify focus on the auth module`. Runs as a subtask regardless of install mode; this is the deterministic path.
+- **Automatic:** asking OpenCode to "simplify my code" *can* route here via the Task tool, but delegation is the primary agent's judgment call — it may edit inline instead. To make routing reliable, add one line to your project's `AGENTS.md`:
+
+  ```markdown
+  - When asked to simplify, clean up, tidy, or polish code, delegate to the
+    code-simplifier subagent via the task tool instead of editing inline.
+  ```
+
+- **Manual mention:** `@code-simplifier clean up my recent changes`
 
 By default it only touches recently changed files (git diff / current session). Ask explicitly if you want a wider sweep.
 

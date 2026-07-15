@@ -1,10 +1,11 @@
 ---
 # Inspired by Anthropic's code-simplifier plugin concept; prompt written from scratch.
 description: >-
-  Cleans up recently changed code — improves readability, removes redundancy,
+  Simplifies recently changed code — improves readability, removes redundancy,
   and aligns style with project conventions without changing behavior. Use
-  after finishing a feature, before opening a PR, or to polish AI-generated
-  code. Scoped to recent changes unless told otherwise.
+  whenever the user asks to simplify, clean up, tidy, polish, or refactor code
+  for readability, after finishing a feature, before opening a PR, or to
+  polish AI-generated code. Scoped to recent changes unless told otherwise.
 mode: subagent
 temperature: 0.1
 ---
