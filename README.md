@@ -2,17 +2,23 @@
 
 A behavior-preserving code cleanup subagent for [OpenCode](https://opencode.ai). It refines recently changed code — readability, redundancy, naming, structure — without altering what the code does, then verifies its edits with the project's own checks.
 
-Inspired by the concept of [Anthropic's code-simplifier plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier) for Claude Code. All prompt text here is written from scratch; this project is not affiliated with or endorsed by Anthropic.
+Not affiliated with Anthropic; the [similarly-named Claude Code plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier) inspired the concept, but everything here is original.
 
 ## Install
 
-One-liner (no checkout needed):
+One-liner (no checkout needed) — for normal TUI use (recommended):
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/codecapitano/opencode-code-simplifier/main/install.sh | sh
 ```
 
-Pass flags through sh, e.g. `... | sh -s -- --primary`.
+If you also want to run it non-interactively (`opencode run --agent code-simplifier`, scripts, CI, pre-commit hooks), add `--primary`:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/codecapitano/opencode-code-simplifier/main/install.sh | sh -s -- --primary
+```
+
+The trade-off: `--primary` installs with `mode: all`, which enables CLI use but also adds the agent to the TUI's Tab rotation of primary agents.
 
 From a checkout of this repository:
 
