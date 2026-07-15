@@ -6,16 +6,20 @@ Inspired by the concept of [Anthropic's code-simplifier plugin](https://github.c
 
 ## Install
 
-Copy the agent file to your global OpenCode agents directory:
+From a checkout of this repository:
 
 ```sh
-cp agents/code-simplifier.md ~/.config/opencode/agents/code-simplifier.md
+./install.sh              # global (~/.config/opencode/agents/)
+./install.sh --project    # this project only (./.opencode/agents/)
+./install.sh --primary    # global, with mode: all for CLI use (see below)
+./install.sh --uninstall  # remove
 ```
 
-Or per-project:
+Or copy the file manually:
 
 ```sh
-cp agents/code-simplifier.md .opencode/agents/code-simplifier.md
+cp agents/code-simplifier.md ~/.config/opencode/agents/code-simplifier.md   # global
+cp agents/code-simplifier.md .opencode/agents/code-simplifier.md            # per-project
 ```
 
 ## Usage
@@ -48,7 +52,7 @@ No model is pinned — the agent inherits your session model. To pin one, add to
 
 Most other agent options (`temperature`, `permission`, …) can be overridden the same way — but not `mode`: OpenCode resolves subagent-vs-primary from the agent file itself, so a JSON `mode` override won't take effect (verified on OpenCode 1.18.1).
 
-**Heads-up for CLI use:** `opencode run --agent code-simplifier` silently falls back to the default agent, because this agent ships as `mode: subagent`. For non-interactive runs, copy the file into your project's `.opencode/agents/` and change the frontmatter to `mode: all`; in the TUI, the `@code-simplifier` mention works as-is.
+**Heads-up for CLI use:** `opencode run --agent code-simplifier` silently falls back to the default agent, because this agent ships as `mode: subagent`. For non-interactive runs (scripts, CI, pre-commit hooks), install with `./install.sh --primary`, which flips the frontmatter to `mode: all`; in the TUI, the `@code-simplifier` mention works as-is.
 
 ## License
 
