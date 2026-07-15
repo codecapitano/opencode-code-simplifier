@@ -15,4 +15,4 @@
 ## 3. Wrap up
 
 - [x] 3.1 Commit repo contents on main (initial commit; local only — no remote without visibility decision)
-- [ ] 3.2 Archive the change (`openspec archive add-code-simplifier-agent`) once verified
+- [x] 3.2 Archive the change (`openspec archive add-code-simplifier-agent`) once verified
