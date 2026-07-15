@@ -20,7 +20,17 @@ primary=0
 uninstall=0
 
 usage() {
-  sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'
+  # Self-contained so --help also works when the script is piped (curl | sh).
+  cat <<'EOF'
+Installer for the code-simplifier OpenCode agent and /simplify command.
+
+Usage:
+  install.sh              install globally (~/.config/opencode/)
+  install.sh --project    install into ./.opencode/ of the current project
+  install.sh --primary    install with mode: all so `opencode run --agent code-simplifier` works
+  install.sh --uninstall  remove the installed agent and command (honors --project)
+  install.sh --help       show this help
+EOF
 }
 
 while [ $# -gt 0 ]; do
@@ -57,15 +67,18 @@ fi
 
 # Source resolution: local checkout first, then download. Resolve both files
 # before writing anything so a failed fetch never leaves a partial install.
+# tmp_dir and its cleanup trap live in the main shell: resolve() runs inside
+# command substitutions, where a subshell-local trap would delete the
+# downloaded files before the parent could copy them.
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-tmp_dir=""
+tmp_dir=$(mktemp -d)
+trap 'rm -rf "$tmp_dir"' EXIT
 
 resolve() { # $1: local relative path, $2: URL, prints resolved path or fails
   if [ -f "$script_dir/$1" ]; then
     printf '%s\n' "$script_dir/$1"
     return 0
   fi
-  [ -n "$tmp_dir" ] || { tmp_dir=$(mktemp -d); trap 'rm -rf "$tmp_dir"' EXIT; }
   out="$tmp_dir/$(basename "$1")"
   if [ -n "$2" ] && command -v curl >/dev/null 2>&1 && curl -fsSL "$2" -o "$out"; then
     printf '%s\n' "$out"
