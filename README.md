@@ -6,6 +6,14 @@ Inspired by the concept of [Anthropic's code-simplifier plugin](https://github.c
 
 ## Install
 
+One-liner (no checkout needed):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/codecapitano/opencode-code-simplifier/main/install.sh | sh
+```
+
+Pass flags through sh, e.g. `... | sh -s -- --primary`.
+
 From a checkout of this repository:
 
 ```sh

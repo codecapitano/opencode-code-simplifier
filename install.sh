@@ -11,8 +11,7 @@ set -eu
 
 AGENT_NAME="code-simplifier.md"
 # Raw URL used when the script runs without a local checkout (curl | sh).
-# TODO: set once the repository has a public remote.
-AGENT_URL=""
+AGENT_URL="https://raw.githubusercontent.com/codecapitano/opencode-code-simplifier/main/agents/code-simplifier.md"
 
 scope="global"
 primary=0
