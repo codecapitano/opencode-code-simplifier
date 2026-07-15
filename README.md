@@ -23,17 +23,19 @@ The trade-off: `--primary` installs with `mode: all`, which enables CLI use but 
 From a checkout of this repository:
 
 ```sh
-./install.sh              # global (~/.config/opencode/agents/)
-./install.sh --project    # this project only (./.opencode/agents/)
+./install.sh              # global (~/.config/opencode/)
+./install.sh --project    # this project only (./.opencode/)
 ./install.sh --primary    # global, with mode: all for CLI use (see below)
-./install.sh --uninstall  # remove
+./install.sh --uninstall  # remove agent and command
 ```
 
-Or copy the file manually:
+The installer places two files: the agent (`agents/code-simplifier.md`) and the `/simplify` command (`commands/simplify.md`).
+
+Or copy the files manually (global; use `.opencode/` instead for per-project):
 
 ```sh
-cp agents/code-simplifier.md ~/.config/opencode/agents/code-simplifier.md   # global
-cp agents/code-simplifier.md .opencode/agents/code-simplifier.md            # per-project
+cp agents/code-simplifier.md ~/.config/opencode/agents/code-simplifier.md
+cp commands/simplify.md      ~/.config/opencode/commands/simplify.md
 ```
 
 ## Usage
