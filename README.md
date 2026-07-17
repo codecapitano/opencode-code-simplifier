@@ -2,8 +2,6 @@
 
 A behavior-preserving code cleanup subagent for [OpenCode](https://opencode.ai). It refines recently changed code — readability, redundancy, naming, structure — without altering what the code does, then verifies its edits with the project's own checks.
 
-_Not affiliated with Anthropic; the [similarly-named Claude Code plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier) inspired the concept, but everything here is original._
-
 ## Install
 
 One-liner (no checkout needed) — for normal TUI use (recommended):
